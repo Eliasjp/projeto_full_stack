@@ -26,6 +26,6 @@ model Contact {
   email      String
   phone      String
   created_at DateTime @default(now())
-  client     Client   @relation(fields: [client_id], references: [id])
+  client     Client   @relation(fields: [client_id], references: [id], onDelete: Cascade)
   client_id  String
 }
