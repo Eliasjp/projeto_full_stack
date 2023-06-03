@@ -7,6 +7,6 @@ export declare abstract class ClientRepository {
     abstract findOne(id: string): Promise<Client> | Client;
     abstract findByEmail(email: string): Promise<Client> | Client;
     abstract findByPhone(phone: string): Promise<Client> | Client;
-    abstract update(id: string, data: UpdateClientDto): Promise<Client> | Client;
-    abstract delete(id: string): Promise<void> | void;
+    abstract update(id: string, data: UpdateClientDto, request_id: string): Promise<Client> | Client;
+    abstract delete(id: string, request_id: string): Promise<void> | void;
 }

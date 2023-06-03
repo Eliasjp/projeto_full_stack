@@ -7,6 +7,6 @@ export declare class ClientController {
     create(createClientDto: CreateClientDto): Promise<import("./entities/client.entity").Client>;
     findAll(): Promise<import("./entities/client.entity").Client[]>;
     findOne(id: string): Promise<import("./entities/client.entity").Client>;
-    update(id: string, updateClientDto: UpdateClientDto): Promise<import("./entities/client.entity").Client>;
-    remove(id: string): Promise<void>;
+    update(id: string, updateClientDto: UpdateClientDto, req: any): Promise<import("./entities/client.entity").Client>;
+    remove(id: string, req: any): Promise<void>;
 }

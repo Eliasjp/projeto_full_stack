@@ -6,10 +6,13 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
+  Request
 } from '@nestjs/common';
 import { ClientService } from './client.service';
 import { CreateClientDto } from './dto/create-client.dto';
 import { UpdateClientDto } from './dto/update-client.dto';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller('client')
 export class ClientController {
@@ -31,12 +34,14 @@ export class ClientController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateClientDto: UpdateClientDto) {
-    return this.clientService.update(id, updateClientDto);
+  @UseGuards(JwtAuthGuard)
+  update(@Param('id') id: string, @Body() updateClientDto: UpdateClientDto, @Request() req: any) {
+    return this.clientService.update(id, updateClientDto, req.user.id);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.clientService.delete(id);
+  @UseGuards(JwtAuthGuard)
+  remove(@Param('id') id: string, @Request() req: any) {
+    return this.clientService.delete(id, req.user.id);
   }
 }

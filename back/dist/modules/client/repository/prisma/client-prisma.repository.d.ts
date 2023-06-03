@@ -11,6 +11,6 @@ export declare class ClientPrismaRepository implements ClientRepository {
     findOne(id: string): Promise<Client>;
     findByEmail(email: string): Promise<Client>;
     findByPhone(phone: string): Promise<Client>;
-    update(id: string, data: UpdateClientDto): Client | Promise<Client>;
-    delete(id: string): Promise<void>;
+    update(id: string, data: UpdateClientDto, request_id: string): Client | Promise<Client>;
+    delete(id: string, request_id: string): Promise<void>;
 }

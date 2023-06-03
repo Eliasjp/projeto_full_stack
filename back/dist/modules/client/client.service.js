@@ -24,7 +24,6 @@ let ClientService = class ClientService {
     async create(createClientDto) {
         const byEmail = await this.clientRepository.findByEmail(createClientDto.email);
         const byPhone = await this.clientRepository.findByPhone(createClientDto.phone);
-        console.log(byEmail, byPhone);
         if (byEmail) {
             throw new common_1.ConflictException('Email already registered');
         }
@@ -42,12 +41,16 @@ let ClientService = class ClientService {
         const client = await this.clientRepository.findOne(id);
         return client;
     }
-    async update(id, updateClientDto) {
-        const client = await this.clientRepository.update(id, updateClientDto);
+    async findByEmail(email) {
+        const client = await this.clientRepository.findByEmail(email);
         return client;
     }
-    async delete(id) {
-        await this.clientRepository.delete(id);
+    async update(id, updateClientDto, request_id) {
+        const client = await this.clientRepository.update(id, updateClientDto, request_id);
+        return client;
+    }
+    async delete(id, request_id) {
+        await this.clientRepository.delete(id, request_id);
     }
 };
 __decorate([
@@ -71,18 +74,24 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ClientService.prototype, "findOne", null);
 __decorate([
+    __param(0, (0, common_1.Param)('email')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], ClientService.prototype, "findByEmail", null);
+__decorate([
     (0, common_1.Patch)(),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, update_client_dto_1.UpdateClientDto]),
+    __metadata("design:paramtypes", [String, update_client_dto_1.UpdateClientDto, String]),
     __metadata("design:returntype", Promise)
 ], ClientService.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)(),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", Promise)
 ], ClientService.prototype, "delete", null);
 ClientService = __decorate([

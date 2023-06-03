@@ -7,6 +7,7 @@ export declare class ClientService {
     create(createClientDto: CreateClientDto): Promise<import("./entities/client.entity").Client>;
     findAll(): Promise<import("./entities/client.entity").Client[]>;
     findOne(id: string): Promise<import("./entities/client.entity").Client>;
-    update(id: string, updateClientDto: UpdateClientDto): Promise<import("./entities/client.entity").Client>;
-    delete(id: string): Promise<void>;
+    findByEmail(email: string): Promise<import("./entities/client.entity").Client>;
+    update(id: string, updateClientDto: UpdateClientDto, request_id: string): Promise<import("./entities/client.entity").Client>;
+    delete(id: string, request_id: string): Promise<void>;
 }

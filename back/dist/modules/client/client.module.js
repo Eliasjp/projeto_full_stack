@@ -26,6 +26,7 @@ ClientModule = __decorate([
                 useClass: client_prisma_repository_1.ClientPrismaRepository,
             },
         ],
+        exports: [client_service_1.ClientService]
     })
 ], ClientModule);
 exports.ClientModule = ClientModule;

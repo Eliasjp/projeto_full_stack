@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ClientPrismaRepository = void 0;
 const common_1 = require("@nestjs/common");
+const exceptions_1 = require("@nestjs/common/exceptions");
 const client_entity_1 = require("../../entities/client.entity");
 const prisma_service_1 = require("../../../../database/prisma.service");
 const class_transformer_1 = require("class-transformer");
@@ -46,15 +47,23 @@ let ClientPrismaRepository = class ClientPrismaRepository {
         });
         return find_client;
     }
-    update(id, data) {
+    update(id, data, request_id) {
+        if (id != request_id) {
+            throw new exceptions_1.UnauthorizedException();
+        }
         const updated_client = this.prisma.client.update({
             where: { id },
             data: Object.assign({}, data),
         });
         return (0, class_transformer_1.plainToInstance)(client_entity_1.Client, updated_client);
     }
-    async delete(id) {
-        await this.prisma.client.delete({ where: { id } });
+    async delete(id, request_id) {
+        if (id != request_id) {
+            throw new exceptions_1.UnauthorizedException();
+        }
+        await this.prisma.client.delete({
+            where: { id },
+        });
     }
 };
 ClientPrismaRepository = __decorate([

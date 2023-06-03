@@ -24,7 +24,6 @@ export class ClientService {
     const byPhone = await this.clientRepository.findByPhone(
       createClientDto.phone,
     );
-    console.log(byEmail, byPhone);
     if (byEmail) {
       throw new ConflictException('Email already registered');
     } else if (byPhone) {
@@ -46,17 +45,20 @@ export class ClientService {
     return client;
   }
 
+  async findByEmail(@Param('email') email: string){
+    const client = await this.clientRepository.findByEmail(email)
+    return client
+  }
+
   @Patch()
   async update(
-    @Param('id') id: string,
-    @Body() updateClientDto: UpdateClientDto,
-  ) {
-    const client = await this.clientRepository.update(id, updateClientDto);
+    @Param('id') id: string, @Body() updateClientDto: UpdateClientDto, request_id: string) {
+    const client = await this.clientRepository.update(id, updateClientDto, request_id);
     return client;
   }
 
   @Delete()
-  async delete(@Param('id') id: string) {
-    await this.clientRepository.delete(id);
+  async delete(@Param('id') id: string, request_id: string) {
+    await this.clientRepository.delete(id, request_id);
   }
 }

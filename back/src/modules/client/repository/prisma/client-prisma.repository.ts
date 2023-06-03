@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { UnauthorizedException } from '@nestjs/common/exceptions';
 import { ClientRepository } from '../client.repository';
 import { CreateClientDto } from '../../dto/create-client.dto';
 import { UpdateClientDto } from '../../dto/update-client.dto';
@@ -49,7 +50,11 @@ export class ClientPrismaRepository implements ClientRepository {
     return find_client;
   }
 
-  update(id: string, data: UpdateClientDto): Client | Promise<Client> {
+  update(id: string, data: UpdateClientDto, request_id: string): Client | Promise<Client> {
+    if (id != request_id){
+      throw new UnauthorizedException()
+    }
+
     const updated_client = this.prisma.client.update({
       where: { id },
       data: { ...data },
@@ -58,7 +63,13 @@ export class ClientPrismaRepository implements ClientRepository {
     return plainToInstance(Client, updated_client);
   }
 
-  async delete(id: string): Promise<void> {
-    await this.prisma.client.delete({ where: { id } });
+  async delete(id: string, request_id: string): Promise<void> {
+    if (id != request_id){
+      throw new UnauthorizedException()
+    }
+
+    await this.prisma.client.delete({
+      where: { id },
+    });
   }
 }
