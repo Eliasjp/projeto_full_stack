@@ -10,24 +10,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateClientDto = void 0;
+const swagger_1 = require("@nestjs/swagger");
 const bcryptjs_1 = require("bcryptjs");
 const class_transformer_1 = require("class-transformer");
 const class_validator_1 = require("class-validator");
 class CreateClientDto {
 }
 __decorate([
+    (0, swagger_1.ApiProperty)({ description: "Maximum length: 100" }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.MaxLength)(100),
     __metadata("design:type", String)
 ], CreateClientDto.prototype, "full_name", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({ description: "Maximum length: 255" }),
     (0, class_validator_1.IsEmail)(),
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.MaxLength)(255),
     __metadata("design:type", String)
 ], CreateClientDto.prototype, "email", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({ description: "Minumum length: 6" }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.MinLength)(6),
@@ -37,6 +41,7 @@ __decorate([
     __metadata("design:type", String)
 ], CreateClientDto.prototype, "password", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)(),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)

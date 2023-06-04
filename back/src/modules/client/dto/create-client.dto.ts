@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { hashSync } from 'bcryptjs';
 import { Transform } from 'class-transformer';
 import {
@@ -10,16 +11,19 @@ import {
 } from 'class-validator';
 
 export class CreateClientDto {
+  @ApiProperty({description: "Maximum length: 100"})
   @IsString()
   @IsNotEmpty()
   @MaxLength(100)
   full_name: string;
 
+  @ApiProperty({description: "Maximum length: 255"})
   @IsEmail()
   @IsNotEmpty()
   @MaxLength(255)
   email: string;
 
+  @ApiProperty({description: "Minumum length: 6"})
   @IsString()
   @IsNotEmpty()
   @MinLength(6)
@@ -28,6 +32,7 @@ export class CreateClientDto {
   })
   password: string;
 
+  @ApiProperty()
   @IsString()
   @IsNotEmpty()
   phone: string;

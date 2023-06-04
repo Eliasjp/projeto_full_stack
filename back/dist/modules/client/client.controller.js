@@ -18,6 +18,7 @@ const client_service_1 = require("./client.service");
 const create_client_dto_1 = require("./dto/create-client.dto");
 const update_client_dto_1 = require("./dto/update-client.dto");
 const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
+const swagger_1 = require("@nestjs/swagger");
 let ClientController = class ClientController {
     constructor(clientService) {
         this.clientService = clientService;
@@ -60,6 +61,7 @@ __decorate([
 ], ClientController.prototype, "findOne", null);
 __decorate([
     (0, common_1.Patch)(':id'),
+    (0, swagger_1.ApiBearerAuth)(),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
@@ -70,6 +72,7 @@ __decorate([
 ], ClientController.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)(':id'),
+    (0, swagger_1.ApiBearerAuth)(),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Request)()),
@@ -78,6 +81,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ClientController.prototype, "remove", null);
 ClientController = __decorate([
+    (0, swagger_1.ApiTags)("Client"),
     (0, common_1.Controller)('client'),
     __metadata("design:paramtypes", [client_service_1.ClientService])
 ], ClientController);

@@ -17,12 +17,13 @@ const common_1 = require("@nestjs/common");
 const contact_service_1 = require("./contact.service");
 const create_contact_dto_1 = require("./dto/create-contact.dto");
 const update_contact_dto_1 = require("./dto/update-contact.dto");
+const swagger_1 = require("@nestjs/swagger");
 let ContactController = class ContactController {
     constructor(contactService) {
         this.contactService = contactService;
     }
-    create(createContactDto, id) {
-        return this.contactService.create(createContactDto, id);
+    create(createContactDto, client_id) {
+        return this.contactService.create(createContactDto, client_id);
     }
     findAll() {
         return this.contactService.findAll();
@@ -38,9 +39,9 @@ let ContactController = class ContactController {
     }
 };
 __decorate([
-    (0, common_1.Post)(':id'),
+    (0, common_1.Post)(':client_id'),
     __param(0, (0, common_1.Body)()),
-    __param(1, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Param)('client_id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_contact_dto_1.CreateContactDto, String]),
     __metadata("design:returntype", void 0)
@@ -52,28 +53,29 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ContactController.prototype, "findAll", null);
 __decorate([
-    (0, common_1.Get)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Get)(':contact_id'),
+    __param(0, (0, common_1.Param)('contact_id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], ContactController.prototype, "findOne", null);
 __decorate([
-    (0, common_1.Patch)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Patch)(':contact_id'),
+    __param(0, (0, common_1.Param)('contact_id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, update_contact_dto_1.UpdateContactDto]),
     __metadata("design:returntype", void 0)
 ], ContactController.prototype, "update", null);
 __decorate([
-    (0, common_1.Delete)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Delete)(':contact_id'),
+    __param(0, (0, common_1.Param)('contact_id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], ContactController.prototype, "remove", null);
 ContactController = __decorate([
+    (0, swagger_1.ApiTags)("Contact"),
     (0, common_1.Controller)('contact'),
     __metadata("design:paramtypes", [contact_service_1.ContactService])
 ], ContactController);
