@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ['latin'] })
 export default function Login() {
   return (
     <div className='min-h-screen flex justify-center'>
-        <div className='w-3/5 lg:w-1/5
+        <div className='w-fit lg:w-2/5
             h-fit
             px-8 py-20 lg: px-0
             m-auto
