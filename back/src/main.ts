@@ -6,7 +6,7 @@ import { SwaggerModule } from '@nestjs/swagger/dist';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  
+  app.enableCors()
   const config = new DocumentBuilder()
   .setTitle("K-Contacts")
   .setDescription("API de clientes e contatos")
