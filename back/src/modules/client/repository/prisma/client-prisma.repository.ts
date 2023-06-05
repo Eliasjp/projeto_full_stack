@@ -39,7 +39,6 @@ export class ClientPrismaRepository implements ClientRepository {
     const find_client = await this.prisma.client.findUnique({
       where: { email },
     });
-    if (!find_client) throw new NotFoundException()
 
     return find_client;
   }
@@ -48,7 +47,6 @@ export class ClientPrismaRepository implements ClientRepository {
     const find_client = await this.prisma.client.findUnique({
       where: { phone },
     });
-    if (!find_client) throw new NotFoundException()
 
     return find_client;
   }
