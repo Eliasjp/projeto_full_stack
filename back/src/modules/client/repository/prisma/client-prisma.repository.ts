@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { UnauthorizedException } from '@nestjs/common/exceptions';
+import { NotFoundException, UnauthorizedException } from '@nestjs/common/exceptions';
 import { ClientRepository } from '../client.repository';
 import { CreateClientDto } from '../../dto/create-client.dto';
 import { UpdateClientDto } from '../../dto/update-client.dto';
@@ -30,6 +30,7 @@ export class ClientPrismaRepository implements ClientRepository {
     const find_client = await this.prisma.client.findUnique({
       where: { id },
     });
+    if (!find_client) throw new NotFoundException()
 
     return plainToInstance(Client, find_client);
   }
@@ -38,6 +39,7 @@ export class ClientPrismaRepository implements ClientRepository {
     const find_client = await this.prisma.client.findUnique({
       where: { email },
     });
+    if (!find_client) throw new NotFoundException()
 
     return find_client;
   }
@@ -46,16 +48,21 @@ export class ClientPrismaRepository implements ClientRepository {
     const find_client = await this.prisma.client.findUnique({
       where: { phone },
     });
+    if (!find_client) throw new NotFoundException()
 
     return find_client;
   }
 
-  update(id: string, data: UpdateClientDto, request_id: string): Client | Promise<Client> {
+  async update(id: string, data: UpdateClientDto, request_id: string): Promise<Client> {
     if (id != request_id){
       throw new UnauthorizedException()
     }
+    const find_client = await this.prisma.client.findUnique({
+      where: { id },
+    });
+    if (!find_client) throw new NotFoundException()
 
-    const updated_client = this.prisma.client.update({
+    const updated_client = await this.prisma.client.update({
       where: { id },
       data: { ...data },
     });
@@ -67,6 +74,11 @@ export class ClientPrismaRepository implements ClientRepository {
     if (id != request_id){
       throw new UnauthorizedException()
     }
+
+    const find_client = await this.prisma.client.findUnique({
+      where: { id },
+    });
+    if (!find_client) throw new NotFoundException()
 
     await this.prisma.client.delete({
       where: { id },
